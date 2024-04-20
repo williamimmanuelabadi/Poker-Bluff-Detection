@@ -42,7 +42,7 @@ round_num = 1
 stage_counter = 0
 
 output_name = get_video_filename(round_num)
-output = cv2.VideoWriter(output_name, cv2.VideoWriter_fourcc('M','J','P','G'), 20, frame_size)
+output = cv2.VideoWriter(output_name, cv2.VideoWriter_fourcc('M','J','P','G'), 30, frame_size)
 
 flag = False
 
