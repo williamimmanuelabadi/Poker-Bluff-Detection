@@ -34,7 +34,7 @@ def predict_vitals(path_data):
         if input_channel =='raw':
             img = 'vid.avi'
             img_size = 72
-            stride = 30
+            stride = 15
             model_checkpoint = r'D:\Code\Project poker\main\rppg\EfficientPhys_model85.pt'
             # path_data = '/data/Users/huangkaichun/UBFC/after-exercise/{}'.format(img)
             # path_label = '/data/Users/huangkaichun/UBFC/Dataset_1/Cleaned/after-exercise.csv'
@@ -49,7 +49,7 @@ def predict_vitals(path_data):
             cap = cv2.VideoCapture(path_data)
             totalFrames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
             fs = fps = float(cap.get(5))
-            window_size = 240    #256 SOTA       default 180
+            window_size = 120    #256 SOTA       default 180
             branch = float(1/fps*1000)
         
         training_dataset = []
