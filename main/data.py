@@ -5,9 +5,11 @@ import time
 import face_recognition
 import mediapipe as mp
 import pytesseract
+import matplotlib.pyplot as plt
+import os
 from inference_sdk import InferenceHTTPClient
 from rppg.predict_vitals_torch import predict_vitals
-from functions import get_grayscale, thresholding, preprocess, read_handcard, read_comcard, draw_box
+from functions import *
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 CLIENT = InferenceHTTPClient(api_url="https://detect.roboflow.com", api_key="CSj5C8ux5AKYMP231vm9")
@@ -28,6 +30,7 @@ current_name=[]#nambah
 fold_state=False #nambah
 processed_photos = []
 process_this_frame = True
+bluff_flag = False 
 first_player=0
 x=(1920/1365)
 y=(1080/767)
