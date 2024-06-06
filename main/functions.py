@@ -80,3 +80,40 @@ def draw_box(frame, left, top, right, bottom, name, card):
     cv2.putText(frame, name, (left + 6, bottom - 6), font, 0.5, (255, 255, 255), 1)
     cv2.putText(frame, card, (right - 56, bottom - 6), font, 0.5, (255, 255, 255), 1)
     
+def get_video_length(video_path):
+    cap = cv2.VideoCapture(video_path)
+    if not cap.isOpened():
+        print(f"Error: Tidak dapat membuka video {video_path}")
+        return None
+    frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    if fps > 0:
+        duration = frame_count / fps
+    else:
+        print("Error: Tidak dapat mendapatkan frame rate")
+        return None
+    cap.release()
+    
+    return duration
+
+def draw_face_landmarks(face_landmarks, frame):
+    color = (0, 0, 255)
+    thickness = 1
+    landmarks_parts = {
+        'nose_bridge': False,
+        'chin': False,
+        'left_eyebrow': False,
+        'right_eyebrow': False,
+        'nose_tip': False,
+        'left_eye': True,
+        'right_eye': True,
+        'top_lip': True,
+        'bottom_lip': True
+    }
+    for part, is_closed in landmarks_parts.items():
+        points = np.array(face_landmarks[part], dtype=np.int32)*4
+        cv2.polylines(frame, [points], is_closed, color, thickness)
+    for part in face_landmarks:
+        for (x, y) in face_landmarks[part]:
+            cv2.circle(frame, (x*4, y*4), 1, color, -1)
+
