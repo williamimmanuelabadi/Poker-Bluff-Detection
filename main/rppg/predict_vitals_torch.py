@@ -34,14 +34,14 @@ def predict_vitals(path_data):
         if input_channel =='raw':
             img = 'vid.avi'
             img_size = 72
-            stride = 15
+            stride = 30
             model_checkpoint = r'D:\Code\Project poker\main\rppg\EfficientPhys_model85.pt'
             # path_data = '/data/Users/huangkaichun/UBFC/after-exercise/{}'.format(img)
             # path_label = '/data/Users/huangkaichun/UBFC/Dataset_1/Cleaned/after-exercise.csv'
             
             path_data = path_data.format(num)    
             # path_label = '/data/Users/huangkaichun/UBFC/Dataset_1/Cleaned/{}BVP.csv'.format(num)
-            # path_data = r'D:\Code\Project poker\face5.avi'.format(num)
+            # path_data = r'D:\Code\Project poker\Poker20\face1.avi'.format(num)
             # path_label = '/data/Users/huangkaichun/UBFC/Dataset_2/Cleaned/{}BVP_fixed.csv'.format(num)  #num
             # time_label = pd.read_csv('/data/Users/huangkaichun/UBFC/Dataset_2/Cleaned/{}BVP_time.csv'.format(num),header=None)
             # path_data = '/data/Users/huangkaichun/UBFC/other/25s_poker.mp4'
@@ -49,7 +49,7 @@ def predict_vitals(path_data):
             cap = cv2.VideoCapture(path_data)
             totalFrames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
             fs = fps = float(cap.get(5))
-            window_size = 180       #256 SOTA       default 180
+            window_size = 240    #256 SOTA       default 180
             branch = float(1/fps*1000)
         
         training_dataset = []
@@ -91,7 +91,7 @@ def predict_vitals(path_data):
             # label = np.array(label).reshape(-1)
             # label = scipy.signal.filtfilt(b_pulse, a_pulse, np.double(label))
         pulse_pred = np.array(predict).reshape(-1)
-        pulse_pred = scipy.signal.filtfilt(b_pulse, a_pulse, np.double(pulse_pred))
+        pulse_pred = scipy.signal.filtfilt(b_pulse, a_pulse, np.double(pulse_pred)) #nambah padlen
 
         # pulse_pred = scipy.signal.filtfilt(b_pulse, a_pulse, np.double(pulse_pred))
         # plt.plot(np.abs(scipy.fft.rfft(pulse_pred,n = 1024)))
